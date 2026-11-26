@@ -1,15 +1,6 @@
-# =========================================================
-# NETLIFY AUTO-UNZIP & DEPLOY CONFIG FOR FORRESTER AUTO SHINE
-# Save this file as "netlify.toml" at the root of your GitHub repo
-# =========================================================
-
-# 1. Build Step:
-#    - Creates a clean "dist" output folder
-#    - Unzips your uploaded ZIP into "dist" (uses unzip, or Python 3 as fallback)
-#    - Removes the extra copy of netlify.toml from inside "dist"
 [build]
-  command = "mkdir -p dist && (unzip -o forrester-auto-shine-netlify.zip -d dist || python3 -m zipfile -e forrester-auto-shine-netlify.zip dist) && rm -f dist/netlify.toml"
-  publish = "dist"
+  command = "test -s site/index.html || { echo 'Missing or empty site/index.html' >&2; exit 1; }"
+  publish = "site"
 
 # 2. Prevent stale caching of your Service Worker (sw.js)
 [[headers]]
